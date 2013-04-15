@@ -32,6 +32,7 @@ import org.apache.sling.servlets.post.HtmlResponse;
 
 class EnhancedPOSTResponse extends HtmlResponse {
 	private SlingHttpServletRequest request;
+	
 	public EnhancedPOSTResponse (SlingHttpServletRequest req) {
 		super();
 		request = req;
@@ -77,7 +78,13 @@ class EnhancedPOSTResponse extends HtmlResponse {
 public class POSTResponseCreator implements PostResponseCreator {
 
 	public PostResponse createPostResponse (SlingHttpServletRequest req) {
-		return new EnhancedPOSTResponse (req);
+		String errorpage = req.getParameter(":errorpage");
+		if (errorpage != null) {
+			return new EnhancedPOSTResponse (req);
+		}
+		else {
+			return new HtmlResponse ();
+		}
 	}
 }
 

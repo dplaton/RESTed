@@ -23,8 +23,8 @@
 			<form method="post" action="/j_security_check" enctype="MULTIPART/FORM-DATA" accept-charset="UTF-8" class="form-horizontal">
 				<div class="modal">
 					<div class="modal-header">
-						<h3>Login <a href="#"><%= resource.getPath() %></a></h3>
-						<a href="<%= resource.getPath() + ".edit.html" %>" class="btn">back</a>
+						<a href="<%= resource.getPath() + ".edit.html" %>" class="close">&times;</a>
+						<h3>Login</h3>
 					</div>
 
 					<div class="modal-body">

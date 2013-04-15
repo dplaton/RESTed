@@ -98,7 +98,7 @@ String suffix = slingRequest.getRequestPathInfo().getSuffix();
 				</td>
 				<td><%=type%></td>
 				<td>
-					<% if (rtype != null) { %>
+					<% if (rtype != null && rtype.indexOf('/') > 0) { %>
 						<%=rtype%> <a href="/.edit.html?q=<%=rtype%>"><i class="icon-search"></i></a>
 					<% } %>
 				</td>
