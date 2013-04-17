@@ -21,7 +21,7 @@ if (resource.getParent() != null) parentPath = resource.getParent().getPath();
 
 %><!DOCTYPE html>
 <html>
-	<sling:include resource="<%=resource%>" resourceType="rested/components/head" replaceSelectors="edit"/>
+	<sling:include resource="<%=resource%>" replaceSelectors="edit-head"/>
 	<body style="background-color:gray">
 		<div class="container-fluid">
 			<div class="modal">
@@ -32,7 +32,7 @@ if (resource.getParent() != null) parentPath = resource.getParent().getPath();
 
   			<div class="modal-body">
 					<div class="alert alert-info"><i class="icon-folder-open"></i> <%= resource.getPath() %></div>
-					<sling:include resource="<%=resource%>" resourceType="rested/components/properties" replaceSelectors="edit"/>
+					<sling:include resource="<%=resource%>" replaceSelectors="properties-body"/>
 				</div>
 				<div class="modal-footer">
 					<a href="<%= parentPath + ".edit.html" %>" class="btn">Cancel</a>

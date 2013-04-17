@@ -20,6 +20,7 @@
 	
 	String parentPath = "/";
 	if (resource.getParent() != null) parentPath = resource.getParent().getPath();
+
 %>
 
 <form class="form-inline" id="RENAME_NODE_FORM" method="POST" action="<%=resource.getPath() %>" enctype="MULTIPART/FORM-DATA">
@@ -37,6 +38,7 @@
 			v.insertElementAt(parent, 0);
 			parent = parent.getParent();
 		}
+
 		for (Iterator<Resource> it = v.iterator();it.hasNext();) {
 			Resource r = it.next();
 			String path = r.getPath();

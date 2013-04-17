@@ -14,7 +14,6 @@
 %><%@ taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %><%
 %><sling:defineObjects /><%
 %>
-	<head>
     <title>RESTed::<%=resource.getPath()%></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
@@ -49,4 +48,3 @@
 				margin-bottom: 0px;
 			}
 		</style>
-	</head>

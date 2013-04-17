@@ -34,12 +34,6 @@
 				<input id="node_name" type="text" name=":name" value="" required placeholder="node name"/>
 			</div>
 		</div>
-		<!-- div class="control-group">
-			<label class="control-label" for="node_rtype">sling resource type</label>
-			<div class="controls">
-				<input id="node_rtype" type="text" name="sling:resourceType" value="" placeholder="resource type"/>
-			</div>
-		</div -->
 
 		<input type="hidden" name=":operation" value="import" />
 		<input type="hidden" name=":contentType" value="json" />
@@ -61,6 +55,21 @@
 	</fieldset>
 </form>
 
+<form id="IMPORTFORM" method="post" action="<%= currentNode.getPath() %>" enctype="multipart/form-data">
+	<fieldset>
+	<legend>Import JSON</legend>
+		<input type="hidden" name=":operation" value="import" />
+		<input type="hidden" name=":contentType" value="json" />
+
+		<input id="node_name" type="text" name=":name" value="" required placeholder="node name"/>
+		<textarea name=":content"></textarea>
+
+		<button class="btn btn-success" type="submit"><i class="icon-ok icon-white"></i></button>
+		<input type="hidden" name=":redirect" value="<%=resource.getPath()%>.edit.html" />
+		<input type="hidden" name=":errorpage" value="<%=slingRequest.getRequestURL()%>" />
+	</fieldset>
+</form>
+
 <form id="UPLOADFORM" method="post" action="<%= currentNode.getPath() %>" enctype="multipart/form-data">
 	<fieldset>
 	<legend>Upload File</legend>
@@ -74,17 +83,4 @@
 	</fieldset>
 </form>
 
-<%
-	String error = request.getParameter("error");
-	if (error != null) {
-		%>
-		<div class="alert alert-error">
-		<a href="<%=slingRequest.getRequestURL()%>" class="close">&times;</a>
-		<strong>Error while saving data!</strong>
-		<%= error %>
-		<p>
-		You may have to <a href=#">login</a> before making any changes.
-		</div>
-		<%
-	}
-%>
+<sling:include resource="<%=resource%>" replaceSelectors="errorbar"/>

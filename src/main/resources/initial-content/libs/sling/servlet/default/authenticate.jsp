@@ -7,29 +7,23 @@
  ************************************************************************/
 --%><%
 %><%@page session="false" contentType="text/html; charset=utf-8" %><%
-%><%@page import="java.io.*,
-                  java.net.*,
-									javax.jcr.*,
-									org.apache.sling.api.resource.*,
-                  utils.*" 
-%><%
-%><%@ taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %><%
+%><%@taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %><%
 %><sling:defineObjects /><%
 %><!DOCTYPE html>
 <html>
-	<sling:include resource="<%=resource%>" resourceType="rested/components/head" replaceSelectors="edit"/>
+	<sling:include resource="${resource}" replaceSelectors="edit-head"/>
 	<body style="background-color:gray">
 		<div class="container-fluid">
 			<form method="post" action="/j_security_check" enctype="MULTIPART/FORM-DATA" accept-charset="UTF-8" class="form-horizontal">
 				<div class="modal">
 					<div class="modal-header">
-						<a href="<%= resource.getPath() + ".edit.html" %>" class="close">&times;</a>
+						<a href="${resource.path}.edit.html" class="close">&times;</a>
 						<h3>Login</h3>
 					</div>
 
 					<div class="modal-body">
 							<input type="hidden" name="_charset_" value="UTF-8">
-							<input type="hidden" name="resource" value="<%= resource.getPath() %>.edit.html">
+							<input type="hidden" name="resource" value="${resource.path}.edit.html">
 							<input type="hidden" name="selectedAuthType" value="form">
 
 							<div class="control-group">

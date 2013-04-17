@@ -26,7 +26,7 @@ if (resource.getParent() != null) parentPath = resource.getParent().getPath();
 
 %><!DOCTYPE html>
 <html>
-	<sling:include resource="<%=res %>" resourceType="rested/components/head" replaceSelectors="edit" />
+	<sling:include resource="<%=res %>" replaceSelectors="edit-head" />
 	<body style="background-color:gray">
     <div class="container-fluid">
 			<FORM ID="PATHSFORM" METHOD="POST" ACTION="<%=resource.getPath() %>" ENCTYPE="MULTIPART/FORM-DATA">
@@ -41,12 +41,12 @@ if (resource.getParent() != null) parentPath = resource.getParent().getPath();
 					<div class="modal-body">
 						<div class="alert alert-info">
 							<strong>from:</strong> <%= cpath %><br/>
-							<strong>to:</strong><h5><sling:include resource="<%=res %>" resourceType="rested/components/breadcrumb" replaceSelectors="view" /></h5>
+							<strong>to:</strong><h5><sling:include resource="<%=res %>" replaceSelectors="moveto-breadcrumb" /></h5>
 						</div>
 
 				<% if (node.hasNodes()) { %>
 					<p>change destination path</p>
-					<sling:include resource="<%=res %>" resourceType="rested/components/pathlist" replaceSelectors="view" />
+					<sling:include resource="<%=res %>" replaceSelectors="moveto-pathlist" />
 				<% }  %>
 
 					</div>

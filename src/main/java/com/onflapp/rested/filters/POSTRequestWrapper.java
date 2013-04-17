@@ -98,9 +98,16 @@ public class POSTRequestWrapper extends SlingHttpServletRequestWrapper {
 	}
 
 	public String getParameter(String name) {
-		RequestParameter v = mypars.getValue(name);
-		if (v == null) return null;
-		else return v.getString();
+		if (name.equals(":redirect")) {
+			RequestParameter v[] = mypars.getValues(name);
+			if (v == null) return null;
+			else return v[v.length-1].getString();
+		}
+		else {
+			RequestParameter v = mypars.getValue(name);
+			if (v == null) return null;
+			else return v.getString();
+		}
 	}
 
 	public RequestParameterMap getRequestParameterMap() {

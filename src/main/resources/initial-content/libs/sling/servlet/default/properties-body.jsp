@@ -9,14 +9,44 @@
 %><%@page session="false" contentType="text/html; charset=utf-8" %><%
 %><%@page import="java.io.*,
                   java.net.*,
+									java.util.*,
 									javax.jcr.*,
 									org.apache.sling.api.resource.*,
                   utils.*" 
-%><%
+%><%!
+
+PropertyIterator getPropertyTemplate(ResourceResolver rres, String ntype, String rtype) {
+	try {
+		String path = "/apps/rested/templates/" + rtype.replace(':','/') + "/properties";
+		Resource res = rres.getResource(path);
+
+		if (res == null) {
+			path = "/apps/rested/templates/default/properties";
+			res = rres.getResource(path);
+		}
+
+		if (res == null) {
+			path = "/apps/rested/templates/" + ntype.replace(':','/') + "/properties";
+			res = rres.getResource(path);
+		}
+
+		if (res == null) return null;
+
+		Node node = res.adaptTo(Node.class);
+		return node.getProperties();
+	}
+	catch (Exception ex) {
+		return null;
+	}
+}
+
 %><%@ taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %><%
 %><sling:defineObjects /><%
 
 	PropertyIterator properties = null;
+	PropertyIterator defaultProperties = null;
+	Map done = new HashMap ();
+
 	String requestPath = slingRequest.getRequestPathInfo().getResourcePath();
 	String content = requestPath;
 	if (resource instanceof NonExistingResource) {
@@ -24,18 +54,26 @@
 	}
 	else {
 		properties = currentNode.getProperties();
+		String ntype = currentNode.getProperty("jcr:primaryType").getString();
+		String rtype = resource.getResourceType();
+		defaultProperties = getPropertyTemplate(resource.getResourceResolver(),ntype, rtype);
 	}
 
 %>
-<FORM ID="DELETE_PROPERTY_FORM" METHOD="POST" ACTION="<%= content %>" ENCTYPE="MULTIPART/FORM-DATA">
-	<INPUT TYPE="HIDDEN" NAME=":redirect" VALUE="<%=slingRequest.getRequestURL()%>" />
-	<INPUT TYPE="HIDDEN" NAME=":errorpage" VALUE="<%=slingRequest.getRequestURL()%>" />
-</FORM>
+<form id="DELETE_PROPERTY_FORM" method="post" action="<%= content %>" enctype="multipart/form-data">
+	<input type="hidden" name=":redirect" value="<%=slingRequest.getRequestURL()%>" />
+	<input type="hidden" name=":errorpage" value="<%=slingRequest.getRequestURL()%>" />
+</form>
 
 <FORM style="margin-bottom:2px" ID="EDIT_PROPERTIES_FORM" class="form-horizontal" METHOD="POST" ACTION="<%= content %>" ENCTYPE="MULTIPART/FORM-DATA">
 	<input type="hidden" name=":redirect" value="<%=resource.getPath()%>.edit.html" />
 	<input type="hidden" name=":errorpage" value="<%=slingRequest.getRequestURL()%>" />
 		<fieldset>
+			<sling:include resource="<%= resource %>" replaceSelectors="properties-custom"/>
+		</fieldset>
+		<br/>
+		<fieldset>
+
 		<% 
 			if (properties != null) {
 				for (;properties.hasNext();) {
@@ -43,6 +81,8 @@
 					String name = p.getName();
 					if (p.isMultiple() == true) continue;
 					if (name.equals("jcr:data")) continue;
+					if (name.equals("sling:resourceType")) continue;
+					if (name.equals("sling:resourceSuperType")) continue;
 
 					String value = p.getString();
 
@@ -70,6 +110,30 @@
 		 </div>
 		</div>
 		<%  	}
+					done.put(name, "y");	
+				}
+			}
+		%>
+		</fieldset>
+		<fieldset>
+		<% 
+			if (defaultProperties != null) {
+				for (;defaultProperties.hasNext();) {
+					Property p = defaultProperties.nextProperty();
+					String name = p.getName();
+					String value = p.getString().trim();
+
+					if (p.isMultiple() == true) continue;
+					if (name.startsWith("jcr:")) continue;
+					if (done.get(name) != null) continue;
+		%>
+		<div class="control-group">
+		 	<label class="control-label" for="<%=name%>"><%=name%></label>
+		 	<div class="controls">
+				<INPUT id="<%=name%>" TYPE="TEXT" NAME="<%=name%>" VALUE="<%=value%>" />
+			</div>
+		</div>
+		<%
 				}
 			}
 		%>
@@ -87,19 +151,4 @@
 	</fieldset>
 </FORM>
 
-
-
-<%
-	String error = request.getParameter("error");
-	if (error != null) {
-		%>
-		<div class="alert alert-error">
-		<a href="<%=slingRequest.getRequestURL()%>" class="close">&times;</a>
-		<strong>Error while saving data!</strong>
-		<%= error %>
-		<p>
-		You may have to <a href=#">login</a> before making any changes.
-		</div>
-		<%
-	}
-%>
+<sling:include resource="<%=resource%>" replaceSelectors="errorbar"/>
