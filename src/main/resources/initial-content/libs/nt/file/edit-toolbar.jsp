@@ -12,6 +12,6 @@
 			<div class="btn-toolbar">
 				<div class="btn-group">
 					<a class="btn" href="<%=resource.getPath() + "/_jcr_content.edit.html"%>"><i class="icon-chevron-right"></i> view jcr:content</a>
-					<a class="btn" href="<%=resource.getPath() + "/_jcr_content.properties.html"%>"><i class="icon-edit"></i> properties</a>
+					<a class="btn" href="<%=resource.getPath() + ".properties.html"%>"><i class="icon-edit"></i> properties</a>
 				</div>
 			</div>

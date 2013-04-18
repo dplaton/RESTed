@@ -19,6 +19,7 @@
 	ValueMap map = resource.adaptTo(ValueMap.class);
 	String rtype = map.get("sling:resourceType", "");
 	String rstype = map.get("sling:resourceSuperType", "");
+	String ptype = map.get("jcr:primaryType", "");
 
 %>
 <div class="control-group">
@@ -27,7 +28,7 @@
 		<input id="sling:resourceType" type="text" name="sling:resourceType" value="<%= rtype %>" />
 		<span class="help-inline">
 			<div class="btn-group">
-				<button class="btn" type="submit" name=":redirect" VALUE="<%= resource.getPath() %>.create-selector.html?type=resourceType"><i class="icon-pencil icon-white"></i></BUTTON>
+				<button class="btn" type="submit" name=":redirect" VALUE="<%= resource.getPath() %>.create-selector.html?type=sling:resourceType"><i class="icon-pencil icon-white"></i></BUTTON>
 			</div>
 		</span>
  </div>
@@ -39,7 +40,19 @@
 		<input id="sling:resourceSuperType" type="text" name="sling:resourceSuperType" value="<%= rstype %>" />
 		<span class="help-inline">
 			<div class="btn-group">
-				<button class="btn" type="submit" name=":redirect" VALUE="<%= resource.getPath() %>.create-selector.html"><i class="icon-pencil icon-white"></i></BUTTON>
+				<button class="btn" type="submit" name=":redirect" VALUE="<%= resource.getPath() %>.create-selector.html?type=sling:resourceSuperType"><i class="icon-pencil icon-white"></i></BUTTON>
+			</div>
+		</span>
+ </div>
+</div>
+
+<div class="control-group">
+ <label class="control-label" for="jcr:primaryType">jcr:primaryType</label>
+ <div class="controls">
+		<input id="jcr:primaryType" type="text" name="jcr:primaryType" value="<%= ptype %>" />
+		<span class="help-inline">
+			<div class="btn-group">
+				<button class="btn" type="submit" name=":redirect" VALUE="<%= resource.getPath() %>.create-selector.html?type=jcr:primaryType"><i class="icon-pencil icon-white"></i></BUTTON>
 			</div>
 		</span>
  </div>

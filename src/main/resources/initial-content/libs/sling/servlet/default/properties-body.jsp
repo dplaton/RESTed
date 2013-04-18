@@ -81,6 +81,7 @@ PropertyIterator getPropertyTemplate(ResourceResolver rres, String ntype, String
 					String name = p.getName();
 					if (p.isMultiple() == true) continue;
 					if (name.equals("jcr:data")) continue;
+					if (name.equals("jcr:primaryType")) continue;
 					if (name.equals("sling:resourceType")) continue;
 					if (name.equals("sling:resourceSuperType")) continue;
 
