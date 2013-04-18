@@ -28,7 +28,9 @@
 		else if (path.endsWith(".css")) type = "text";
 		else if (path.endsWith(".js"))  type = "text";
 		else if (path.endsWith(".png")) type = "image";
-		else if (path.endsWith(".png")) type = "image";
+		else if (path.endsWith(".jpg")) type = "image";
+		else if (path.endsWith(".jpeg")) type = "image";
+		else if (path.endsWith(".gif")) type = "image";
 		else if (path.endsWith(".zip")) type = "archive";
 		else if (path.endsWith(".jar")) type = "archive";
 		else                            type = "text";

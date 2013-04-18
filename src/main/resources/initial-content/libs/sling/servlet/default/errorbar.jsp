@@ -18,7 +18,7 @@
 		<strong>Error while saving data!</strong>
 		<%= error %>
 		<p>
-		You may have to <a href=#">login</a> before making any changes.
+		You may have to <a href="<%= resource.getPath() %>.authenticate.html">login</a> before making any changes.
 		</div>
 		<%
 	}
