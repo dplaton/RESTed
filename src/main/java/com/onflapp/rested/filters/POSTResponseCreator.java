@@ -46,6 +46,7 @@ class EnhancedPOSTResponse extends HtmlResponse {
 			Throwable err = getError();;
 			String msg = "unknown error " + status;
 			if (err != null) msg = err.getMessage();
+			if (msg == null) msg = "unknown message error";
 			response.sendRedirect(errorpage + "?error=" + java.net.URLEncoder.encode(msg, "UTF-8"));
 			/*
 			javax.servlet.RequestDispatcher disp = request.getRequestDispatcher("/.edit.html");

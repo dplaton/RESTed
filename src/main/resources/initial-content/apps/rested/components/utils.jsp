@@ -18,7 +18,7 @@
 			return "SELECT * FROM [nt:base] as N WHERE ISDESCENDANTNODE('"+query+"')";
 		}
 		else {
-			return "SELECT * FROM [nt:base] as N WHERE contains(N.*, '"+query+"')";
+			return "SELECT * FROM [nt:base] as N WHERE contains(N.*, '"+query+"') or LOCALNAME(N) LIKE '%"+query+"%'";
 		}
 	}
 

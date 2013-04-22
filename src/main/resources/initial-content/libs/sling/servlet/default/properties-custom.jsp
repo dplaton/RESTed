@@ -9,51 +9,57 @@
 %><%@page session="false" contentType="text/html; charset=utf-8" %><%
 %><%@page import="java.io.*,
                   java.net.*,
+									java.util.*,
 									javax.jcr.*,
 									org.apache.sling.api.resource.*,
                   utils.*" 
-%><%
+%><%!
 %><%@ taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %><%
 %><sling:defineObjects /><%
-	
-	ValueMap map = resource.adaptTo(ValueMap.class);
-	String rtype = map.get("sling:resourceType", "");
-	String rstype = map.get("sling:resourceSuperType", "");
-	String ptype = map.get("jcr:primaryType", "");
+
+	PropertyIterator properties = null;
+
+	String requestPath = slingRequest.getRequestPathInfo().getResourcePath();
+	String content = requestPath;
+	if (resource instanceof NonExistingResource) {
+		content = requestPath.substring (0, requestPath.indexOf ('.'));
+	}
+	else {
+		properties = currentNode.getProperties();
+	}
 
 %>
-<div class="control-group">
- <label class="control-label" for="sling:resourceType">sling:resourceType</label>
- <div class="controls">
-		<input id="sling:resourceType" type="text" name="sling:resourceType" value="<%= rtype %>" />
-		<span class="help-inline">
-			<div class="btn-group">
-				<button class="btn" type="submit" name=":redirect" VALUE="<%= resource.getPath() %>.create-selector.html?type=sling:resourceType"><i class="icon-pencil icon-white"></i></BUTTON>
-			</div>
-		</span>
- </div>
-</div>
+		<% 
+			if (properties != null) {
+				for (;properties.hasNext();) {
+					Property p = properties.nextProperty();
+					String name = p.getName();
+					String value = null;
 
-<div class="control-group">
- <label class="control-label" for="sling:resourceSuperType">sling:resourceSuperType</label>
- <div class="controls">
-		<input id="sling:resourceSuperType" type="text" name="sling:resourceSuperType" value="<%= rstype %>" />
-		<span class="help-inline">
-			<div class="btn-group">
-				<button class="btn" type="submit" name=":redirect" VALUE="<%= resource.getPath() %>.create-selector.html?type=sling:resourceSuperType"><i class="icon-pencil icon-white"></i></BUTTON>
-			</div>
-		</span>
- </div>
-</div>
+					if (name.startsWith("jcr:")) continue;
+					if (name.startsWith("sling:")) continue;
 
-<div class="control-group">
- <label class="control-label" for="jcr:primaryType">jcr:primaryType</label>
- <div class="controls">
-		<input id="jcr:primaryType" type="text" name="jcr:primaryType" value="<%= ptype %>" />
-		<span class="help-inline">
-			<div class="btn-group">
-				<button class="btn" type="submit" name=":redirect" VALUE="<%= resource.getPath() %>.create-selector.html?type=jcr:primaryType"><i class="icon-pencil icon-white"></i></BUTTON>
-			</div>
-		</span>
- </div>
-</div>
+					if (p.isMultiple() == true) {
+						Value v[] = p.getValues();
+						continue;
+					}
+					else {
+						value = p.getString();
+					}
+
+		%>
+		<div class="control-group">
+		 <label class="control-label" for="<%=name%>"><%=name%></label>
+		 <div class="controls">
+				<input id="<%=name%>" type="text" name="<%=name%>" value="<%=value%>" />
+				<span class="help-inline">
+					<div class="btn-group">
+					<button class="btn btn-danger" type="submit" name="<%=name%>" value="" form="DELETE_PROPERTY_FORM"><i class="icon-trash icon-white"></i></button>
+					</div>
+				</span>
+		 </div>
+		</div>
+		<%  
+				}
+			}
+		%>

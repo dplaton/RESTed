@@ -62,6 +62,21 @@ import org.osgi.framework.Constants;
 
 public class POSTRequestWrapper extends SlingHttpServletRequestWrapper {
 	private com.onflapp.rested.filters.ParameterMap mypars;
+	static void dump (com.onflapp.rested.filters.ParameterMap pars) {
+		Iterator it = pars.entrySet().iterator();
+    while (it.hasNext()) {
+    	Map.Entry vp = (Map.Entry)it.next();
+      String key = (String)vp.getKey();
+			RequestParameter[] val = (RequestParameter[])vp.getValue();
+
+			if (val != null) {
+				for (int i = 0; i < val.length;i++) {
+					String v = val[i].getString();
+					System.out.println (">>>" + key + "=" + v);
+				}
+			}
+		}
+	}
 
 	public POSTRequestWrapper (SlingHttpServletRequest req) {
 		super (req);
@@ -82,19 +97,44 @@ public class POSTRequestWrapper extends SlingHttpServletRequestWrapper {
 					mypars.setParameters(nval.getString(),val);
 				}
 			}
+			else if (key.endsWith("@DeleteValue")) {
+				String pname = key.substring (0, key.length() - 12);
+				RequestParameter[] nval = mypars.getValues(pname);
+				if (nval != null) {
+					Vector v = new Vector();
+					for (int i = 0; i < nval.length;i++) {
+						String a = nval[i].getString();
+						if (a.equals(val[0].getString())) {
+						}
+						else {
+							v.add(nval[i]);
+						}
+					}
+					nval = (RequestParameter[])v.toArray(new RequestParameter[0]);
+					mypars.setParameters(pname,nval);
+				}
+			}
 			else if (key.startsWith(":") && key.endsWith("@ValueFrom")) {
 				String oname = key.substring (0, key.length() - 10);
 				String pname = val[0].getString();
 				RequestParameter[] nval = pars.getValues(pname);
-				if (nval != null) {
-					mypars.removeParameter(pname);
-					mypars.setParameters(oname,nval);
+				RequestParameter[] oval = pars.getValues(oname);
+				if (oval != null) {
+					Vector v = new Vector();
+					for (int i = 0; i < oval.length;i++) {
+						v.add(oval[i]);
+					}
+					nval = (RequestParameter[])v.toArray(new RequestParameter[0]);
 				}
+
+				mypars.removeParameter(pname);
+				mypars.setParameters(oname,nval);
 			}
 			else {
 				mypars.setParameters(key, val);
 			}
 		}
+		dump(mypars);
 	}
 
 	public String getParameter(String name) {

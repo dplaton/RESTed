@@ -33,6 +33,7 @@
 		else if (path.endsWith(".gif")) type = "image";
 		else if (path.endsWith(".zip")) type = "archive";
 		else if (path.endsWith(".jar")) type = "archive";
+		else if (path.endsWith(".pdf")) type = "other";
 		else                            type = "text";
 	}
 %>
@@ -45,5 +46,6 @@
 					<img src="<%=resource.getPath()%>"></img>
 				</DIV>
 			<% } else { %>
+				<a href="<%=resource.getPath()%>"><%=resource.getName()%></a>
 				<!-- IFRAME width="100%" src="<%=currentNode.getPath()%>"></IFRAME -->
 			<% } %>
