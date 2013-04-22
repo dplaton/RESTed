@@ -70,10 +70,14 @@ public class POSTRequestWrapper extends SlingHttpServletRequestWrapper {
 			RequestParameter[] val = (RequestParameter[])vp.getValue();
 
 			if (val != null) {
+				System.out.println (">>>" + key + ":");
 				for (int i = 0; i < val.length;i++) {
 					String v = val[i].getString();
-					System.out.println (">>>" + key + "=" + v);
+					System.out.println ("\t" + v);
 				}
+			}
+			else {
+				System.out.println (">>>" + key + " null value");
 			}
 		}
 	}
@@ -111,10 +115,11 @@ public class POSTRequestWrapper extends SlingHttpServletRequestWrapper {
 						}
 					}
 					nval = (RequestParameter[])v.toArray(new RequestParameter[0]);
-					mypars.setParameters(pname,nval);
+					if (nval.length == 0) mypars.removeParameter(pname);
+					else mypars.setParameters(pname,nval);
 				}
 			}
-			else if (key.startsWith(":") && key.endsWith("@ValueFrom")) {
+			else if (key.endsWith("@ValueFrom")) {
 				String oname = key.substring (0, key.length() - 10); //the real property name
 				String pname = val[0].getString(); //the tmp property name
 
@@ -122,6 +127,7 @@ public class POSTRequestWrapper extends SlingHttpServletRequestWrapper {
 				RequestParameter[] oval = pars.getValues(oname); //the existing values
 
 				mypars.removeParameter(pname);
+
 				if (oval != null) {
 					Vector v = new Vector();
 					for (int i = 0; i < oval.length;i++) {
@@ -141,7 +147,6 @@ public class POSTRequestWrapper extends SlingHttpServletRequestWrapper {
 				mypars.setParameters(key, val);
 			}
 		}
-		dump(mypars);
 	}
 
 	public String getParameter(String name) {

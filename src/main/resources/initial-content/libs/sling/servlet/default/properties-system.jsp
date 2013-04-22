@@ -84,6 +84,7 @@
 						}
 					}
 					else {
+						value = p.getString();
 		%>
 		<div class="control-group">
 		 <label class="control-label" for="<%=name%>"><%=name%></label>

@@ -43,7 +43,7 @@ class EnhancedPOSTResponse extends HtmlResponse {
 		String errorpage = request.getParameter(":errorpage");
 		if (isSuccessful () == false && errorpage != null) { //we are interested in errors only
 			int status = getStatusCode();
-			Throwable err = getError();;
+			Throwable err = getError();
 			String msg = "unknown error " + status;
 			if (err != null) msg = err.getMessage();
 			if (msg == null) msg = "unknown message error";

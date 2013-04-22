@@ -25,6 +25,7 @@
 %>
 <div class="control-group">
  <label class="control-label" for="sling:resourceType">jcr:mixinTypes</label>
+ <input type="hidden" name="jcr:mixinTypes@Delete" value="true"/>
  <% for (int i = 0; i < values.length; i++) { %>
  <div class="controls">
 		<input type="hidden" name="jcr:mixinTypes" value="<%=values[i]%>" />

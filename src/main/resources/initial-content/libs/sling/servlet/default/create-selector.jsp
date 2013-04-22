@@ -65,7 +65,7 @@
 							<input type="hidden" name=":contentType" value="json" />
 
 							<input type="text" name=":name" placeholder="new selector script" />
-							<input type="hidden" name=":redirect" value="<%= slingRequest.getRequestURL() %>" />
+							<input type="hidden" name=":redirect" value="<%=slingRequest.getRequestURL() %>" />
 							<input type="hidden" name=":errorpage" value="<%=slingRequest.getRequestURL()%>" />
 							<input type="hidden" name=":content" value="{ 'jcr:primaryType':'nt:file','jcr:content':{'jcr:primaryType':'nt:resource','jcr:data':'','jcr:mimeType':'text/plain'} }" />
 							
@@ -90,7 +90,7 @@
 							<input type="hidden" name=":contentType" value="json" />
 
 							<input type="text" name=":name" placeholder="new selector script" />
-							<input type="hidden" name=":redirect" value="<%= slingRequest.getRequestURL() %>" />
+							<input type="hidden" name=":redirect" value="<%=slingRequest.getRequestURL() %>" />
 							<input type="hidden" name=":errorpage" value="<%=slingRequest.getRequestURL()%>" />
 							<input type="hidden" name=":content" value="{ 'jcr:primaryType':'nt:file','jcr:content':{'jcr:primaryType':'nt:resource','jcr:data':'','jcr:mimeType':'text/plain'} }" />
 							<button class="btn btn-success" type="submit"><i class="icon-white icon-plus"></i></button>
@@ -114,7 +114,7 @@
 							<input type="hidden" name=":contentType" value="json" />
 
 							<input type="text" name=":name" placeholder="new selector script" />
-							<input type="hidden" name=":redirect" value="<%= slingRequest.getRequestURL() %>" />
+							<input type="hidden" name=":redirect" value="<%=slingRequest.getRequestURL() %>" />
 							<input type="hidden" name=":errorpage" value="<%=slingRequest.getRequestURL()%>" />
 							<input type="hidden" name=":content" value="{ 'jcr:primaryType':'nt:file','jcr:content':{'jcr:primaryType':'nt:resource','jcr:data':'','jcr:mimeType':'text/plain'} }" />
 							<button class="btn btn-success" type="submit"><i class="icon-white icon-plus"></i></button>

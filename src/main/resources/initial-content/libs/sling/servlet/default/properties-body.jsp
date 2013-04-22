@@ -28,6 +28,11 @@
 	<input type="hidden" name=":redirect" value="<%=slingRequest.getRequestURL()%>" />
 	<input type="hidden" name=":errorpage" value="<%=slingRequest.getRequestURL()%>" />
 		<fieldset>
+			<legend>Mixins</legend>
+			<sling:include resource="<%= resource %>" replaceSelectors="properties-mixins"/>
+		</fieldset>
+
+		<fieldset>
 			<legend>Rendering</legend>
 			<sling:include resource="<%= resource %>" replaceSelectors="properties-rendering"/>
 		</fieldset>
@@ -35,11 +40,6 @@
 		<fieldset>
 			<legend>System</legend>
 			<sling:include resource="<%= resource %>" replaceSelectors="properties-system"/>
-		</fieldset>
-
-		<fieldset>
-			<legend>Mixins</legend>
-			<sling:include resource="<%= resource %>" replaceSelectors="properties-mixins"/>
 		</fieldset>
 
 		<fieldset>

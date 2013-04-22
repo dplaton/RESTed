@@ -25,6 +25,14 @@
 			cursor: move;
 		}
 
+		.controls + .controls {
+			margin-top: 2px;
+		}
+
+    .modal-body {
+			max-height: 100%;
+		}
+
 		[draggable] {
 			-moz-user-select: none;
 			-khtml-user-select: none;
