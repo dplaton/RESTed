@@ -115,20 +115,27 @@ public class POSTRequestWrapper extends SlingHttpServletRequestWrapper {
 				}
 			}
 			else if (key.startsWith(":") && key.endsWith("@ValueFrom")) {
-				String oname = key.substring (0, key.length() - 10);
-				String pname = val[0].getString();
-				RequestParameter[] nval = pars.getValues(pname);
-				RequestParameter[] oval = pars.getValues(oname);
+				String oname = key.substring (0, key.length() - 10); //the real property name
+				String pname = val[0].getString(); //the tmp property name
+
+				RequestParameter[] nval = pars.getValues(pname); //the values
+				RequestParameter[] oval = pars.getValues(oname); //the existing values
+
+				mypars.removeParameter(pname);
 				if (oval != null) {
 					Vector v = new Vector();
 					for (int i = 0; i < oval.length;i++) {
 						v.add(oval[i]);
 					}
+					for (int i = 0; i < nval.length;i++) {
+						v.add(nval[i]);
+					}
 					nval = (RequestParameter[])v.toArray(new RequestParameter[0]);
+					mypars.setParameters(oname,nval);
 				}
-
-				mypars.removeParameter(pname);
-				mypars.setParameters(oname,nval);
+				else {
+					mypars.setParameters(oname,nval);
+				}
 			}
 			else {
 				mypars.setParameters(key, val);

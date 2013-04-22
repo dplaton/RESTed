@@ -25,7 +25,7 @@
 </form>
 	
 <FORM style="margin-bottom:2px" ID="EDIT_PROPERTIES_FORM" class="form-horizontal" METHOD="POST" ACTION="<%= resource.getPath() %>" ENCTYPE="MULTIPART/FORM-DATA">
-	<input type="hidden" name=":redirect" value="<%=slingRequest.getRequestURL()%>.edit.html" />
+	<input type="hidden" name=":redirect" value="<%=slingRequest.getRequestURL()%>" />
 	<input type="hidden" name=":errorpage" value="<%=slingRequest.getRequestURL()%>" />
 		<fieldset>
 			<legend>Rendering</legend>
