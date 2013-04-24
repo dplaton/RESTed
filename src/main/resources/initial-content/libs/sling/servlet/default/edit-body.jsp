@@ -11,7 +11,7 @@
 %><sling:defineObjects /><% 
 
 	if (resource.getChildren().iterator().hasNext()) { %>
-		<sling:include resource="<%=resource%>" replaceSelectors="edit-contentlist"/>
+		<sling:include resource="<%=resource%>" replaceSelectors="edit-pathlist"/>
 	<% } else { %>
 		<div class="alert alert-info">
 			<a href="#" class="close"><i class="icon-circle-arrow-left"></i></a>
