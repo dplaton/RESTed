@@ -16,8 +16,18 @@
 %><%
 %><%@ taglib prefix="sling" uri="http://sling.apache.org/taglibs/sling/1.0" %><%
 %><sling:defineObjects /><%
-	String text = currentNode.getProperty("jcr:content/jcr:data").getString();
-	MarkdownProcessor proc = new MarkdownProcessor();
-	String html = proc.markdown(text);
+	String path = resource.getPath();
+	if (path.endsWith(".md") || path.endsWith("markdown")) {
+		String text = currentNode.getProperty("jcr:content/jcr:data").getString();
+		MarkdownProcessor proc = new MarkdownProcessor();
+		String html = proc.markdown(text);
+		%><%=html%><%
+	}
+	else if (path.endsWith(".html") || path.endsWith(".htm")) {
+		String text = currentNode.getProperty("jcr:content/jcr:data").getString();
+		%><%=text%><%
+	}
+	else if (path.endsWith(".png")) {
+		%><img src="<%=path%>"></img><%
+	}
 %>
-<%=html%>

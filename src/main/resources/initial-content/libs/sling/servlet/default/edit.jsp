@@ -12,17 +12,17 @@
 %><!DOCTYPE html>
 <html>
 	<head>
-		<sling:include resource="<%=resource%>" replaceSelectors="edit-head"/>
+		<sling:include resource="${resource}" replaceSelectors="edit-head"/>
 	</head>
 	<body>
-		<sling:include resource="<%=resource%>" replaceSelectors="edit-navbar"/>
+		<sling:include resource="${resource}" replaceSelectors="edit-navbar"/>
 		<div class="subnavbar">
-			<sling:include resource="<%=resource%>" replaceSelectors="edit-breadcrumb"/>
+			<sling:include resource="${resource}" replaceSelectors="edit-breadcrumb"/>
 		</div>
     <div class="container-fluid">
-			<sling:include resource="<%=resource%>" replaceSelectors="errorbar"/>
-			<sling:include resource="<%=resource%>" replaceSelectors="edit-toolbar"/>
-			<sling:include resource="<%=resource%>" replaceSelectors="edit-body"/>
+			<sling:include resource="${resource}" replaceSelectors="errorbar"/>
+			<sling:include resource="${resource}" replaceSelectors="edit-toolbar"/>
+			<sling:include resource="${resource}" replaceSelectors="edit-body"/>
 
 		</div>
 	</body>
