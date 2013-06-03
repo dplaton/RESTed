@@ -14,7 +14,8 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.onflapp.rested.filters;
+
+package org.apache.sling.additions.post;
 
 import java.io.IOException;
 

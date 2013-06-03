@@ -16,7 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package com.onflapp.rested.filters;
+
+package org.apache.sling.additions.post;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -61,8 +62,8 @@ import org.apache.sling.api.resource.ResourceUtil;
 import org.osgi.framework.Constants;
 
 public class POSTRequestWrapper extends SlingHttpServletRequestWrapper {
-	private com.onflapp.rested.filters.ParameterMap mypars;
-	static void dump (com.onflapp.rested.filters.ParameterMap pars) {
+	private org.apache.sling.additions.post.ParameterMap mypars;
+	static void dump (org.apache.sling.additions.post.ParameterMap pars) {
 		Iterator it = pars.entrySet().iterator();
     while (it.hasNext()) {
     	Map.Entry vp = (Map.Entry)it.next();
@@ -70,14 +71,12 @@ public class POSTRequestWrapper extends SlingHttpServletRequestWrapper {
 			RequestParameter[] val = (RequestParameter[])vp.getValue();
 
 			if (val != null) {
-				System.out.println (">>>" + key + ":");
 				for (int i = 0; i < val.length;i++) {
 					String v = val[i].getString();
 					System.out.println ("\t" + v);
 				}
 			}
 			else {
-				System.out.println (">>>" + key + " null value");
 			}
 		}
 	}
@@ -85,7 +84,7 @@ public class POSTRequestWrapper extends SlingHttpServletRequestWrapper {
 	public POSTRequestWrapper (SlingHttpServletRequest req) {
 		super (req);
 		RequestParameterMap pars = super.getRequestParameterMap();
-		mypars = new com.onflapp.rested.filters.ParameterMap();
+		mypars = new org.apache.sling.additions.post.ParameterMap();
 
 		Iterator it = pars.entrySet().iterator();
     while (it.hasNext()) {
