@@ -10,18 +10,6 @@
                   utils.*"
 %><%!
 
-	String buildQuery (String query) {
-		if (query.indexOf("/") > 1) { //assume this is relative path
-			return "SELECT * FROM [nt:file] as N WHERE ISDESCENDANTNODE('/apps/"+query+"') or ISDESCENDANTNODE('/libs/"+query+"')";
-		}
-		else if (query.indexOf("/") == 0) { //assume this is absolute path
-			return "SELECT * FROM [nt:base] as N WHERE ISDESCENDANTNODE('"+query+"')";
-		}
-		else {
-			return "SELECT * FROM [nt:base] as N WHERE contains(N.*, '"+query+"') or LOCALNAME(N) LIKE '%"+query+"%'";
-		}
-	}
-
 	String parentDir(String path) {
 		if (path == null) return "/";
 		int x = path.lastIndexOf('/');
@@ -38,18 +26,6 @@
 	NodeIterator listNodes (Node currentNode) throws Exception {
 		NodeIterator children = currentNode.getNodes();
 		return children;
-	}
-
-	NodeIterator searchNodes (SlingHttpServletRequest req, String q) throws Exception {
-		String queryType = "JCR-SQL2";
-		String statement = buildQuery (q);
-		Session session = req.getResourceResolver ().adaptTo (Session.class);
-		QueryManager queryManager = session.getWorkspace().getQueryManager ();
-		Query query = queryManager.createQuery (statement, queryType);
-
-		QueryResult result = query.execute ();
-		NodeIterator nodeIter = result.getNodes ();
-		return nodeIter;
 	}
 
 	String iconForType(String type) {
