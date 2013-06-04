@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package com.onflapp.rested.filters;
+package org.apache.sling.additions.post;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;

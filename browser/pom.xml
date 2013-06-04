@@ -24,7 +24,7 @@
     <artifactId>sling</artifactId>
     <version>14</version>
   </parent>
-  <artifactId>com.onflapp.rested</artifactId>
+  <artifactId>org.apache.rested</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>RESTed</name>
